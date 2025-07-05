@@ -3,10 +3,12 @@ package service;
 import dto.JobRequest;
 import entity.JobListing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.stereotype.Service;
 import repository.JobRepository;
 
 import java.util.List;
-
+@Service
 public class JobService {
 
     @Autowired
@@ -18,35 +20,27 @@ public class JobService {
 
         job.setTitle(request.title);
         job.setDescription(request.description);
-//        job.setCompanyName(request.companyName);
-//        job.setType(request.type);
-        job.setLocation(request.location);
-//        job.setSkills(request.skills);
-//        job.setRemote(request.remote);
-//        job.setDurationWeeks(request.durationWeeks);
-//        job.setStipend(request.stipend);
-//        job.setPostedAt(request.postedAt);
+        job.setCompanyName(request.companyName);
         job.setJobType(request.jobType);
+        job.setLocation(request.location);
+        job.setSkills(request.skills);
+        job.setDuration(request.duration);
 
         jobRepository.save(job);
 
         return "Job post got saved";
 
     }
-
     public List<JobListing> getAllJobs()
     {
         return jobRepository.findAll();
     }
-
-    public List<JobListing> searchByTitle(String title)
+    public List<JobListing> getByTitle(String title)
     {
         return jobRepository.findByTitle(title);
     }
-
-    public List<JobListing> searchBycompanyName(String companyName)
+    public List<JobListing> getByCompanyName(String companyName)
     {
         return jobRepository.findByCompanyName(companyName);
     }
-
 }

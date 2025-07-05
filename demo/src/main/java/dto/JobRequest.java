@@ -2,7 +2,7 @@ package dto;
 
 public class JobRequest {
 
-    public String skils;
+    public String skills;
     public String duration;
     public String title;
     public String companyName;

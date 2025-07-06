@@ -16,15 +16,20 @@ public class StudentController {
 
     @PostMapping("/profile")
     public ResponseEntity<String> save(@RequestBody StudentDto dto){
-        return ResponseEntity.ok(studentService.createOrUpdate(dto));
+        return ResponseEntity.ok(studentService.create(dto));
     }
-
-    @GetMapping("profile/{email}")
+    @GetMapping("/profile/{email}")
     public ResponseEntity<StudentDto>get(@PathVariable String email){
         return ResponseEntity.ok(studentService.getProfile(email));
     }
-//    @PutMapping("/profile")
-//    public ResponseEntity<String> update(@RequestBody StudentDto dto) {
-//        return ResponseEntity.ok(studentService.update(dto));
-//    }
+    @PutMapping("/profile")
+    public ResponseEntity<String> update(@RequestBody StudentDto dto) {
+        return ResponseEntity.ok(studentService.update(dto));
+    }
+    @DeleteMapping("/profile/{email}")
+    public ResponseEntity<String> delete(@PathVariable String email) {
+        studentService.deleteByEmail(email);
+        return ResponseEntity.ok("Student deleted successfully");
+    }
+
 }

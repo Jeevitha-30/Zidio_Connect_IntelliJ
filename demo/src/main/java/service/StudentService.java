@@ -16,7 +16,7 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public String createOrUpdate(StudentDto dto){
+    public String create(StudentDto dto){
 
         User user = userRepository.findByEmail(dto.email)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + dto.email));
@@ -30,9 +30,26 @@ public class StudentService {
         student.setDegree(dto.degree);
         student.setUniversity(dto.university);
         student.setResumeUrl(dto.resumeUrl);
+        student.setYearOfStudy(dto.yearOfStudy);
+
         studentRepository.save(student);
 
         return "Student Profile got saved";
+    }
+    public String update(StudentDto dto) {
+        Student student = studentRepository.findByEmail(dto.email)
+                .orElseThrow(() -> new RuntimeException("Student not found with email: " + dto.email));
+
+        student.setName(dto.name);
+        student.setEmail(dto.email);
+        student.setDegree(dto.degree);
+        student.setUniversity(dto.university);
+        student.setResumeUrl(dto.resumeUrl);
+        student.setYearOfStudy(dto.yearOfStudy);
+
+        studentRepository.save(student);
+
+        return "Student Profile updated";
     }
     public StudentDto getProfile(String email){
         Student s =studentRepository.findByEmail(email).orElseThrow();
@@ -44,4 +61,10 @@ public class StudentService {
         dto.resumeUrl=s.getResumeUrl();
         return dto;
     }
+    public void deleteByEmail(String email) {
+        Student student = studentRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        studentRepository.delete(student);
+    }
+
 }

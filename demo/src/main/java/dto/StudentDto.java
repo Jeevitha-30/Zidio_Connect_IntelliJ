@@ -7,5 +7,6 @@ public class StudentDto{
     public String degree;
     public String university;
     public String resumeUrl;
+    public int yearOfStudy;
 
 }

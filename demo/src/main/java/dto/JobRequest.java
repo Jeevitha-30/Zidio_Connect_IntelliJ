@@ -1,13 +1,17 @@
 package dto;
 
-public class JobRequest {
+import org.hibernate.sql.exec.spi.StandardEntityInstanceResolver;
 
-    public String skills;
-    public String duration;
+public class JobRequest {
+    public Long id;
     public String title;
-    public String companyName;
     public String description;
     public String location;
     public String jobType;
-    public String localDate;
+    public String companyName;
+    public String skills;
+    public String duration;
+    public String postedDate;
+    public Long recruiterId;
+    public String recruiterName;
 }

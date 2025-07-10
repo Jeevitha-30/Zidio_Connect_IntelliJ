@@ -19,8 +19,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**",
                                 "/error",
                                 "/api/students/**",
-                                "/api/job/**",
-                                "/api/recruiters/**",
+                                "/api/jobs/**",
+                                "/api/recruiter/**",
                                 "/api/applications/**",
                                 "/api/admin/**",
                                 "/api/notifications/**").permitAll()

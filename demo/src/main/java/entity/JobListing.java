@@ -1,27 +1,46 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 @Entity
 public class JobListing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id", nullable = false)
+    @JsonBackReference
+    private Recruiter recruiter;
+
+    public Recruiter getRecruiter() {
+        return recruiter;
+    }
+
+    public void setRecruiter(Recruiter recruiter) {
+        this.recruiter = recruiter;
+    }
+
+
     private String title;
     private String description;
     private String location;
     private String jobType;
-    private String employerName;
     private String companyName;
     private String skills;
     private String duration;
-    private String localDate;
-    private String postedBy;
+    private String postedDate;
+    private String recruiterName;
+
+    public String getRecruiterName() {
+        return recruiterName;
+    }
+
+    public void setRecruiterName(String recruiterName) {
+        this.recruiterName = recruiterName;
+    }
 
     public Long getId() {
         return id;
@@ -63,14 +82,6 @@ public class JobListing {
         this.jobType = jobType;
     }
 
-    public String getEmployerName() {
-        return employerName;
-    }
-
-    public void setEmployerName(String employerName) {
-        this.employerName = employerName;
-    }
-
     public String getCompanyName() {
         return companyName;
     }
@@ -95,19 +106,11 @@ public class JobListing {
         this.duration = duration;
     }
 
-    public String getLocalDate() {
-        return localDate;
+    public String getPostedDate() {
+        return postedDate;
     }
 
-    public void setLocalDate(String localDate) {
-        this.localDate = localDate;
-    }
-
-    public String getPostedBy() {
-        return postedBy;
-    }
-
-    public void setPostedBy(String postedBy) {
-        this.postedBy = postedBy;
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
     }
 }

@@ -31,10 +31,17 @@ public class JobController {
     public ResponseEntity<String>postJob(@RequestBody JobRequest request){
         return ResponseEntity.ok(jobService.jobListing(request));
     }
-    @GetMapping
-    public ResponseEntity<List<JobListing>>getAllJobs(){
-        return ResponseEntity.ok(jobService.getAllJobs());
+//    @GetMapping("/all")
+//    public ResponseEntity<List<JobListing>>getAllJobs(){
+//        return ResponseEntity.ok(jobService.getAllJobs());
+//    }
+
+    @GetMapping("/all")
+    public List<JobRequest> getAllJobs() {
+        return jobService.getAllJobs();
     }
+
+
     @GetMapping("search/title/{title}")
     public ResponseEntity<List<JobListing>>searchByTitle(@PathVariable String title){
         return ResponseEntity.ok(jobService.getByTitle(title));

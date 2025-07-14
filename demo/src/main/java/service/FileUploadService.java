@@ -15,19 +15,16 @@ import java.util.UUID;
 public class FileUploadService {
 
     @Value("${file.upload-dir}")
-    private String UploadDir;
+    private String uploadDir;
 
-    public String uplaod(MultipartFile file)throws IOException {
-        Path path = Paths.get(UploadDir);
+    public Path upload(MultipartFile file)throws IOException {
+        Path path = Paths.get(uploadDir);
         if(!Files.exists(path)) {
-
             Files.createDirectories(path);
         }
         String fileName= UUID.randomUUID()+"_"+ file.getOriginalFilename();
         Path targetPath= path.resolve(fileName);
         Files.copy(file.getInputStream(),targetPath, StandardCopyOption.REPLACE_EXISTING);
-
-        return "/files/" +fileName;
-
+        return targetPath;
     }
 }

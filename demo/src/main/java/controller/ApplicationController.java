@@ -29,9 +29,9 @@ public class ApplicationController {
     }
 
     @GetMapping("/student/{email}")
-    public List<ApplicationResponse>getByStudentEmail(@PathVariable String studentEmail){
+    public List<ApplicationResponse>getByStudentEmail(@PathVariable("email") String email){
 
-        return applicationService.getApplicationsByStudent(studentEmail);
+        return applicationService.getApplicationsByStudent(email);
     }
 
     @GetMapping("/job/{jobId}")

@@ -23,7 +23,8 @@ public class SecurityConfig {
                                 "/api/recruiter/**",
                                 "/api/applications/**",
                                 "/api/admin/**",
-                                "/api/notifications/**").permitAll()
+                                "/api/notifications/**",
+                                "/api/file/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

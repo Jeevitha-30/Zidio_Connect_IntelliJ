@@ -38,7 +38,7 @@ public class UserInfo {
         this.role = role;
     }
 
-    public boolean isIsactive() {
+    public boolean getIsactive() {
         return isactive;
     }
 

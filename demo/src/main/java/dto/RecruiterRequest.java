@@ -1,7 +1,5 @@
 package dto;
 
-import entity.User;
-
 public class RecruiterRequest {
     public Long userId;
     public String companyName;

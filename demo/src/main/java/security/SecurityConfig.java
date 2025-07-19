@@ -24,7 +24,10 @@ public class SecurityConfig {
                                 "/api/applications/**",
                                 "/api/admin/**",
                                 "/api/notifications/**",
-                                "/api/file/**").permitAll()
+                                "/api/file/**",
+                                "/api/subscription/**",
+                                "/api/payments/**",
+                                "/api/user_subscrption_status/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

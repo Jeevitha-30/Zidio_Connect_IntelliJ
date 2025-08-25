@@ -1,6 +1,7 @@
 package controller;
 
 import dto.RecruiterRequest;
+import dto.RecruiterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,12 @@ public class RecruiterController{
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<RecruiterRequest>>getAll(){
+    public ResponseEntity<List<RecruiterResponse>>getAll(){
         return ResponseEntity.ok(recruiterService.getAllRecruiters());
     }
 
     @GetMapping("/{recruiterEmail}")
-    public ResponseEntity<RecruiterRequest> getByRecruiterEmail(@PathVariable String recruiterEmail) {
+    public ResponseEntity<RecruiterResponse> getByRecruiterEmail(@PathVariable String recruiterEmail) {
         return ResponseEntity.ok(recruiterService.getByRecruiterEmail(recruiterEmail));
     }
 

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import repository.UserRepository;
 import security.JwtUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class AuthService {
 
@@ -18,6 +21,9 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     public String register(RegisterRequest request){
+        if(userRepository.findByEmail(request.email).isPresent()) {
+            return "Email already registered. Please login.";
+        }
         User user = new User();
         user.setEmail(request.email);
         user.setPassword(new BCryptPasswordEncoder().encode(request.password));
@@ -26,12 +32,19 @@ public class AuthService {
         userRepository.save(user);
         return "User Registered Successfully";
     }
-    public String login(LoginRequest request){
+    public Map<String, String> login(LoginRequest request){
         User user = userRepository.findByEmail(request.email)
                 .orElseThrow(()->new RuntimeException("User not found"));
         if(!new BCryptPasswordEncoder().matches(request.password,user.getPassword())){
             throw new RuntimeException("Invalid Password");
         }
-        return jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail());
+
+        Map<String, String> response = new HashMap<>();
+        response.put("email", user.getEmail());
+        response.put("role", user.getRole());  // NOT user.getTroll().name()
+        response.put("token", token);
+
+        return response;
     }
 }

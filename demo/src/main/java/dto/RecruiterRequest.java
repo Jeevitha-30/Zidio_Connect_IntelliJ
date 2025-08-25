@@ -1,6 +1,6 @@
 package dto;
 
-public class RecruiterRequest {
+public class RecruiterRequest{
     public Long userId;
     public String companyName;
     public String recruiterName;

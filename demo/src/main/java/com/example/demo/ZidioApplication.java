@@ -16,5 +16,4 @@ public class ZidioApplication {
 
 		SpringApplication.run(ZidioApplication.class, args);
 	}
-
 }

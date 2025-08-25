@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.StudentService;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("/api/students")
@@ -31,5 +32,18 @@ public class StudentController {
         studentService.deleteByEmail(email);
         return ResponseEntity.ok("Student deleted successfully");
     }
+    @GetMapping("/profile")
+    public ResponseEntity<StudentDto> getOwnProfile(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).body(null);
+        }
+
+        String email = authentication.getName();  // Extract email from token's principal
+
+        StudentDto profile = studentService.getProfile(email);
+
+        return ResponseEntity.ok(profile);
+    }
+
 
 }

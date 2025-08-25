@@ -12,7 +12,7 @@ public class Recruiter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "recruiter_email", unique = true, nullable = false)
     private String recruiterEmail;
 
     @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)

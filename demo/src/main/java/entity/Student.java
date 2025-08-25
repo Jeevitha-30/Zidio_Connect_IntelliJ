@@ -12,7 +12,7 @@ public class Student {
     private User user;
     private String name;
     private String email;
-//    private String course;
+    //    private String course;
     private String university;
     private String degree;
     private int yearOfStudy;
@@ -51,10 +51,12 @@ public class Student {
     }
 
     public int getYearOfStudy() {
+
         return yearOfStudy;
     }
 
     public void setYearOfStudy(int yearOfStudy) {
+
         this.yearOfStudy = yearOfStudy;
     }
 

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.JobRequest;
 import entity.JobListing;

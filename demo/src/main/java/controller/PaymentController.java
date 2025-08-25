@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.PaymentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,5 @@ public class PaymentController {
     public ResponseEntity<List<PaymentResponse>>getAll(){
         return ResponseEntity.ok(paymentService.getAllPayments());
     }
+
 }

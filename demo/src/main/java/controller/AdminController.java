@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import service.AdminService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -35,4 +36,5 @@ public class AdminController {
     public List<UserInfoResponse> getUserByRole(@PathVariable String role ){
         return adminService.getUsersByRole(role);
     }
+
 }

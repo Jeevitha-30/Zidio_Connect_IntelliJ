@@ -1,5 +1,6 @@
 package service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import dto.UserPaymentStatusDto;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import entity.UserPaymentStatus;
+import enums.PaidStatus;
 import repository.UserPaymentStatusRepository;
 
 @Service
@@ -16,32 +18,40 @@ public class UserPaymentStatusService {
     private UserPaymentStatusRepository userPaymentStatusRepository;
 
     public UserPaymentStatusDto assignSubscriptionPlan(UserPaymentStatusDto dto) {
-        UserPaymentStatus paymentStatus  = new UserPaymentStatus();
+        UserPaymentStatus paymentStatus = new UserPaymentStatus();
         paymentStatus.setUserId(dto.userId);
         paymentStatus.setPlanId(dto.planId);
-        paymentStatus.setSubscriptionStart(dto.subscriptionStart);
-        paymentStatus.setSubscriptionEnd(dto.subscriptionEnd);
-        paymentStatus.setStatus(dto.status);
 
-//		userPaymentStatusRepository.save(paymentStatus);
+
+        // Use provided dates if not null, otherwise auto-generate
+        LocalDate startDate = dto.subscriptionStart != null ? dto.subscriptionStart : LocalDate.now();
+        LocalDate endDate = dto.subscriptionEnd != null ? dto.subscriptionEnd : startDate.plusDays(30);
+
+        paymentStatus.setSubscriptionStart(startDate);
+        paymentStatus.setSubscriptionEnd(endDate);
+
+        // Default status to ACTIVE if not provided
+        paymentStatus.setStatus(dto.status != null ? dto.status : PaidStatus.ACTIVE);
 
         UserPaymentStatus saved = userPaymentStatusRepository.save(paymentStatus);
-        dto.id=saved.getId();
-        dto.subscriptionStart=saved.getSubscriptionStart();
-        dto.subscriptionEnd=saved.getSubscriptionEnd();
-        dto.status=saved.getStatus();
+
+        // Update DTO from saved entity
+        dto.id = saved.getId();
+        dto.subscriptionStart = saved.getSubscriptionStart();
+        dto.subscriptionEnd = saved.getSubscriptionEnd();
+        dto.status = saved.getStatus();
         return dto;
     }
 
-    public Optional<UserPaymentStatusDto> getStatusByUserId(Long id){
-        return userPaymentStatusRepository.findByUserId(id).map(status->{
+    public Optional<UserPaymentStatusDto> getStatusByUserId(Long id) {
+        return userPaymentStatusRepository.findByUserId(id).map(status -> {
             UserPaymentStatusDto dto = new UserPaymentStatusDto();
-            dto.id=status.getId();
-            dto.planId=status.getPlanId();
-            dto.userId=status.getUserId();
-            dto.subscriptionStart=status.getSubscriptionStart();
-            dto.subscriptionEnd=status.getSubscriptionEnd();
-            dto.status=status.getStatus();
+            dto.id = status.getId();
+            dto.planId = status.getPlanId();
+            dto.userId = status.getUserId();
+            dto.subscriptionStart = status.getSubscriptionStart();
+            dto.subscriptionEnd = status.getSubscriptionEnd();
+            dto.status = status.getStatus();
             return dto;
         });
     }

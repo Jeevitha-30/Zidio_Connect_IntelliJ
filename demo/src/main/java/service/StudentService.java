@@ -10,6 +10,7 @@ import repository.UserRepository;
 @Service
 public class StudentService {
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -59,6 +60,7 @@ public class StudentService {
         dto.degree=s.getDegree();
         dto.university=s.getUniversity();
         dto.resumeUrl=s.getResumeUrl();
+        dto.yearOfStudy = s.getYearOfStudy();
         return dto;
     }
     public void deleteByEmail(String email) {
